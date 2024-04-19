@@ -1,8 +1,12 @@
 function applySpec(specification) {
-    return function (value1, value2) {
+    return function (...args) {
         const appliedSpec = {}
-        for (const [key, func] of Object.entries(specification)) {
-            appliedSpec[key] = func(value1, value2);
+        for (const [key, val] of Object.entries(specification)) {
+            if (typeof val === 'function') {
+                appliedSpec[key] = val(...args);
+            } else {
+                appliedSpec[key] = applySpec(val)(...args);
+            }
         }
         return appliedSpec;
     }
