@@ -4,17 +4,18 @@ function isObject(value) {
 
 function applySpec(specification) {
     return function (...args) {
-        const appliedSpec = {}
+        let results;
+        Array.isArray(specification) ? results = [] : results = {};
         for (const [key, val] of Object.entries(specification)) {
             if (typeof val === 'function') {
-                appliedSpec[key] = val(...args);
+                results[key] = val(...args);
             } else if (Array.isArray(val)) {
-                appliedSpec[key] = val.map((spec) => applySpec(spec)(...args));
+                results[key] = val.map((spec) => applySpec(spec)(...args));
             } else {
-                appliedSpec[key] = applySpec(val)(...args);
+                results[key] = applySpec(val)(...args);
             }
         }
-        return appliedSpec;
+        return results;
     }
 }
 
