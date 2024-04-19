@@ -4,8 +4,7 @@ function isObject(value) {
 
 function applySpec(specification) {
     return function (...args) {
-        let results;
-        Array.isArray(specification) ? results = [] : results = {};
+        const results = Array.isArray(specification) ? [] : {};
         for (const [key, val] of Object.entries(specification)) {
             if (typeof val === 'function') {
                 results[key] = val(...args);
