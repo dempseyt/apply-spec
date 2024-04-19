@@ -1,3 +1,4 @@
+
 import applySpec from "./apply-spec"
 import R from "ramda"
 
@@ -27,7 +28,11 @@ describe('apply-spec', () => {
         expect(applySpec({map: R.prop('a')})({a: 1})).toEqual({map: 1});
     });
     it('retains the highest arity', () => {
-        const f = applySpec({ f1: R.nAry(2, R.T), f2: R.nAry(5, R.T) })
-        expect(f.length).toEqual(5);
+        const f = applySpec({ 
+            f1: R.nAry(2, R.T), 
+            f4: R.nAry(3, R.T),
+            f2: { f3: { f4: R.nAry(1, R.T)}, f5: R.nAry(2, R.T)}
+        })
+        expect(f.length).toEqual(3);
     })
 });
