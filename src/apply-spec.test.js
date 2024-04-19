@@ -34,5 +34,8 @@ describe('apply-spec', () => {
             f2: { f3: { f4: R.nAry(1, R.T)}, f5: R.nAry(2, R.T)}
         })
         expect(f.length).toEqual(3);
+    });
+    it('returns a curried function', () => {
+        expect(applySpec({ sum: R.add })(1)(2)).toEqual({ sum: 3 });
     })
 });
