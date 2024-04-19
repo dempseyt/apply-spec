@@ -1,14 +1,14 @@
 function getHighestArity(spec) {
-    let highestArity = Object.values(spec).reduce((acc, currentValue) => {
+    const highestArity = Object.values(spec).reduce((highestArity, currentValue) => {
+        let currentArity;
         if (typeof currentValue === 'function') {
-            return Math.max(acc, currentValue.length);
+            currentArity = currentValue.length;
         } else {
-            getHighestArity(currentValue);
+            currentArity = getHighestArity(currentValue);
         }
+        return Math.max(currentArity, highestArity);
     }, 0)
-
-    return highestArity;
-
+    return highestArity
 }
 
 function applySpec(specification) {
@@ -29,7 +29,7 @@ function applySpec(specification) {
         }
         return results;
     }
-    
+
     Object.defineProperty(factory, "length", {
         value: highestArity,
         writable: false,
