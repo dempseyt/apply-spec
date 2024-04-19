@@ -19,5 +19,8 @@ describe('apply-spec', () => {
     });
     it('works with arrays of spec objects', () => {
         expect(applySpec([{ sum: R.add }])(1, 2)).toEqual([{ sum: 3 }])
+    });
+    it('works with arrays of functions', () => {
+        expect(applySpec([R.map(R.prop('a')), R.map(R.prop('b'))])([{a: 'a1', b: 'b1'}, {a: 'a2', b: 'b2'}])).toEqual([['a1', 'a2'], ['b1', 'b2']]);
     })
 })
