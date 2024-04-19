@@ -26,4 +26,8 @@ describe('apply-spec', () => {
     it('works with a spec defining a map key', () => {
         expect(applySpec({map: R.prop('a')})({a: 1})).toEqual({map: 1});
     });
-})
+    it('retains the highest arity', () => {
+        const f = applySpec({ f1: R.nAry(2, R.T), f2: R.nAry(5, R.T) })
+        expect(f.length).toEqual(5);
+    })
+});
