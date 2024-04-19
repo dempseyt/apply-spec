@@ -13,5 +13,8 @@ describe('apply-spec', () => {
     });
     it('works with nested specs', () => {
         expect(applySpec({ unnested: R.always(0), nested: { sum: R.add } })(1,2)).toEqual({ unnested: 0, nested: { sum: 3 } });
-    })
+    });
+    it('works with arrays of nested specs', () => {
+        expect(applySpec({ unnested: R.always(0), nested: [{ sum: R.add }] })(1, 2)).toEqual({ unnested: 0, nested: [{ sum: 3 }] });
+    });
 })
